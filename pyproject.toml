@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "gnn_workshop"
+version = "2.2.0"
+repository = "None"
+description = "Tutorial for GNN model."
+keywords=[ "graph neural network", "data science", "gnn"]
+license = "Proprietary"
+readme = "README.md"
+authors = ["Kefei <kefei@nate.tech>"]
+classifiers=[
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    'Topic :: Scientific/Engineering :: Artificial Intelligence',
+    "Programming Language :: Python :: 3"
+    ]
+
+[tool.poetry.dependencies]
+python = "^3.8.5"
+torch = { url = "https://download.pytorch.org/whl/cpu/torch-1.6.0%2Bcpu-cp38-cp38-linux_x86_64.whl" }
+torch-optimizer = "^0.1.0"
+torch-scatter = { url = "https://pytorch-geometric.com/whl/torch-1.6.0/torch_scatter-2.0.5+cpu-cp38-cp38-linux_x86_64.whl" }
+torch-sparse = { url = "https://pytorch-geometric.com/whl/torch-1.6.0/torch_sparse-0.6.8+cpu-cp38-cp38-linux_x86_64.whl" }
+torch-cluster = { url = "https://pytorch-geometric.com/whl/torch-1.6.0/torch_cluster-1.5.8+cpu-cp38-cp38-linux_x86_64.whl" }
+torch-spline-conv = { url = "https://pytorch-geometric.com/whl/torch-1.6.0/torch_spline_conv-1.2.0+cpu-cp38-cp38-linux_x86_64.whl" }
+torch-geometric = "^1.6.3"
+
+[[tool.poetry.source]]
+name = "blackbox"
+url = "https://nate-python-847574585735.d.codeartifact.eu-west-1.amazonaws.com/pypi/blackbox/simple"
+secondary = true
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
