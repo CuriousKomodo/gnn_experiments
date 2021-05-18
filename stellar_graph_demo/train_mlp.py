@@ -1,5 +1,7 @@
 from sklearn import preprocessing
 from stellargraph.datasets import datasets
+from pprint import pprint
+import numpy as np
 
 from stellar_graph_demo.baseline.train_mlp_functions import (
     create_train_val_test_datasets_mlp,
@@ -8,13 +10,14 @@ from stellar_graph_demo.baseline.train_mlp_functions import (
     evaluate_mlp_model_on_test_dataset,
     visualise_mlp_embedding
 )
+from stellar_graph_demo.visualisation import tsne_plot_embedding
 
 
 if __name__ == "__main__":
     dataset = datasets.Cora()
     graph, node_subjects = dataset.load()
 
-    print(graph.info())
+    pprint(graph.info())
 
     # Obtain the node features from graph, which has dimension (2708, 1433)
     _features = graph.node_features()
@@ -22,6 +25,15 @@ if __name__ == "__main__":
     # Convert the string labels into one-hot vectors
     target_encoding = preprocessing.LabelBinarizer()
     _targets = target_encoding.fit_transform(node_subjects.values)
+
+    # Visualise the initial embedding of all the nodes via TSNE
+    gt_labels = np.argmax(_targets, axis=1)
+    tsne_plot_embedding(
+        X=_features,
+        y=gt_labels,
+        indices=node_subjects.index,
+        model_name='MLP'
+    )
 
     # Split the node features into train, validation and test
     _train_features, _val_features, _test_features, _train_targets, _val_targets, _test_targets \

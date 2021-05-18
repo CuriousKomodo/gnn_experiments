@@ -84,3 +84,13 @@ def visualise_mlp_embedding(model, features, targets, indices):
         model_name='MLP'
     )
 
+
+def visualise_initial_embedding(features, targets, indices):
+    """Visualises the first layer of MLP via TSNE, coloured by ground truth labels"""
+    gt_labels = np.argmax(targets, axis=1)
+    tsne_plot_embedding(
+        X=features,
+        y=gt_labels,
+        indices=indices,
+        model_name='MLP'
+    )

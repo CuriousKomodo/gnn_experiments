@@ -1,4 +1,5 @@
 from stellargraph import datasets
+from pprint import pprint
 
 from stellar_graph_demo.gnn.train_gnn_functions import (
     get_model_and_generator,
@@ -15,7 +16,7 @@ if __name__ == "__main__":
     dataset = datasets.Cora()
     _graph, _node_subjects = dataset.load()
 
-    print(_graph.info())
+    pprint(_graph.info())
 
     # Build GraphSAGE/GAT model + softmax, with node generator
     _model, _generator = get_model_and_generator(
