@@ -25,7 +25,7 @@ def get_model_and_generator(model_name, graph, num_labels):
         generator = FullBatchNodeGenerator(graph, method="gat")
 
         gnn_model = GAT(
-            layer_sizes=[8, 8],
+            layer_sizes=[32, 32],
             activations=["elu", "softmax"],
             attn_heads=8,
             generator=generator,
