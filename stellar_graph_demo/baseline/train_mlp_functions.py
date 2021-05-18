@@ -31,7 +31,7 @@ def get_mlp_model(input_size, num_labels):
     model = Sequential()
     model.add(Dense(32, input_dim=input_size, activation='relu', name='embedding_layer'))
     model.add(Dropout(0.5))
-    model.add(Dense(num_labels, activation='sigmoid'))
+    model.add(Dense(num_labels, activation='softmax'))
 
     model.compile(
         optimizer='adam',
