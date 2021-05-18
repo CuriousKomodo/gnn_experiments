@@ -12,6 +12,10 @@ from stellar_graph_demo.visualisation import tsne_plot_embedding
 
 
 def create_train_val_test_datasets_mlp(features, targets):
+    """
+    Splits the dataset (features + targets) with stratification according to the following proportions :
+    Train: 271, Validation: 500, Test: 1937
+    """
     train_features, test_features, train_targets, test_targets = model_selection.train_test_split(
         features, targets, train_size=0.1, test_size=None, stratify=targets
     )
@@ -23,6 +27,7 @@ def create_train_val_test_datasets_mlp(features, targets):
 
 
 def get_mlp_model(input_size, num_labels):
+    """Builds the baseline model - 2-layer MLP that takes the initial node features as input"""
     model = Sequential()
     model.add(Dense(32, input_dim=input_size, activation='relu', name='embedding_layer'))
     model.add(Dropout(0.5))
@@ -41,11 +46,12 @@ def train_mlp_model(model,
                     train_targets,
                     val_features,
                     val_targets):
+    """Trains the MLP model in batches"""
     history = model.fit(
         x=train_features,
         y=train_targets,
         epochs=50,
-        batch_size=128,
+        batch_size=32,
         validation_data=(val_features, val_targets),
         verbose=2,
         shuffle=True,
@@ -55,6 +61,7 @@ def train_mlp_model(model,
 
 
 def evaluate_mlp_model_on_test_dataset(model, test_features, test_targets):
+    """Evaluate the pre-trained MLP model on test dataset"""
     test_predictions = model.predict(test_features)
     test_pred_labels = np.argmax(test_predictions, axis=1)
     test_targets_labels = np.argmax(test_targets, axis=1)
@@ -63,6 +70,7 @@ def evaluate_mlp_model_on_test_dataset(model, test_features, test_targets):
 
 
 def visualise_mlp_embedding(model, features, targets, indices):
+    """Visualises the first layer of MLP via TSNE, coloured by ground truth labels"""
     gt_labels = np.argmax(targets, axis=1)
     embedding_model = Model(
         inputs=model.input,

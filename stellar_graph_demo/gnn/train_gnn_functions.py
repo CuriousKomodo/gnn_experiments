@@ -9,6 +9,7 @@ from stellar_graph_demo.visualisation import tsne_plot_embedding
 
 
 def get_model_and_generator(model_name, graph, num_labels):
+    """Build GNN model + softmax with its corresponding generator"""
     if model_name == 'graphsage':
         batch_size = 50
         num_samples = [10, 5]
@@ -48,6 +49,7 @@ def get_model_and_generator(model_name, graph, num_labels):
 
 
 def create_gnn_generators_flows(node_subjects, generator):
+    """Create the GNN generator flows for training, validation and test"""
     train_subjects, test_subjects = model_selection.train_test_split(
         node_subjects, train_size=0.1, test_size=None, stratify=node_subjects
     )
@@ -70,6 +72,7 @@ def train_gnn_model(model,
                     train_generator_flow,
                     val_generator_flow,
                     ):
+    """Trains the GNN model using the generator flows"""
     history = model.fit(
         train_generator_flow,
         epochs=50,
@@ -81,6 +84,7 @@ def train_gnn_model(model,
 
 
 def evaluate_gnn_model_on_test_dataset(model, test_generator_flow):
+    """Evaluate the pre-trained GNN model on test dataset"""
     test_metrics = model.evaluate(test_generator_flow)
     print("\nTest Set Metrics:")
     for name, val in zip(model.metrics_names, test_metrics):
@@ -88,6 +92,7 @@ def evaluate_gnn_model_on_test_dataset(model, test_generator_flow):
 
 
 def visualise_gnn_embedding(node_subjects, generator, model, model_name):
+    """Visualises the pre-softmax layer of GNN via TSNE, coloured by ground truth labels"""
     all_nodes = node_subjects.index
     all_mapper = generator.flow(all_nodes)
 
