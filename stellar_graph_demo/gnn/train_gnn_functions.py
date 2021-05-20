@@ -25,7 +25,7 @@ def get_model_and_generator(model_name, graph, num_labels):
         generator = FullBatchNodeGenerator(graph, method="gat")
 
         gnn_model = GAT(
-            layer_sizes=[32, 32],
+            layer_sizes=[8, 8],
             activations=["elu", "softmax"],
             attn_heads=8,
             generator=generator,
@@ -100,7 +100,7 @@ def visualise_gnn_embedding(node_subjects, generator, model, model_name):
     embbeding_matrix = embedding_model.predict(all_mapper)
 
     target_encoding = preprocessing.LabelBinarizer()
-    gt_labels = np.argmax(target_encoding.transform(node_subjects), axis=1)
+    gt_labels = np.argmax(target_encoding.fit_transform(node_subjects), axis=1)
 
     tsne_plot_embedding(
         X=embbeding_matrix,
