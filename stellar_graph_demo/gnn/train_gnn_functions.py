@@ -31,7 +31,7 @@ def get_model_and_generator(model_name, graph, num_labels):
             generator=generator,
             in_dropout=0.5,
             attn_dropout=0.5,
-            normalize=None,
+            normalize="l2",
         )
     else:
         raise Exception(f'Unknown model: {model_name}')
@@ -75,7 +75,7 @@ def train_gnn_model(model,
     """Trains the GNN model using the generator flows"""
     history = model.fit(
         train_generator_flow,
-        epochs=50,
+        epochs=5,
         validation_data=val_generator_flow,
         verbose=2,
         shuffle=False
@@ -103,7 +103,7 @@ def visualise_gnn_embedding(node_subjects, generator, model, model_name):
     gt_labels = np.argmax(target_encoding.fit_transform(node_subjects), axis=1)
 
     tsne_plot_embedding(
-        X=embbeding_matrix,
+        X=embbeding_matrix[0],
         y=gt_labels,
         indices=node_subjects.index,
         model_name=model_name,
