@@ -75,7 +75,7 @@ def train_gnn_model(model,
     """Trains the GNN model using the generator flows"""
     history = model.fit(
         train_generator_flow,
-        epochs=5,
+        epochs=100,
         validation_data=val_generator_flow,
         verbose=2,
         shuffle=False

@@ -50,7 +50,7 @@ def train_mlp_model(model,
     history = model.fit(
         x=train_features,
         y=train_targets,
-        epochs=50,
+        epochs=100,
         batch_size=32,
         validation_data=(val_features, val_targets),
         verbose=2,
