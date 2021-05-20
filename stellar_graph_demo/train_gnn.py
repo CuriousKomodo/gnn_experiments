@@ -11,6 +11,7 @@ from stellar_graph_demo.gnn.train_gnn_functions import (
 
 
 if __name__ == "__main__":
+    """Trains the GNN (GraphSAGE/GAT) model"""
     _model_name = 'gat'
 
     dataset = datasets.Cora()

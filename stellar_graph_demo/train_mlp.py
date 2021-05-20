@@ -14,6 +14,7 @@ from stellar_graph_demo.visualisation import tsne_plot_embedding
 
 
 if __name__ == "__main__":
+    """Trains the MLP baseline model"""
     dataset = datasets.Cora()
     graph, node_subjects = dataset.load()
 
