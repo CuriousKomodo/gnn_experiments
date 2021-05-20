@@ -71,11 +71,13 @@ def create_gnn_generators_flows(node_subjects, generator):
 def train_gnn_model(model,
                     train_generator_flow,
                     val_generator_flow,
+                    epochs=100,
                     ):
     """Trains the GNN model using the generator flows"""
+
     history = model.fit(
         train_generator_flow,
-        epochs=100,
+        epochs=epochs,
         validation_data=val_generator_flow,
         verbose=2,
         shuffle=False
@@ -97,13 +99,17 @@ def visualise_gnn_embedding(node_subjects, generator, model, model_name):
     all_mapper = generator.flow(all_nodes)
 
     embedding_model = Model(inputs=model.input, outputs=model.get_layer('lambda').output)
+
     embbeding_matrix = embedding_model.predict(all_mapper)
+
+    if model_name == 'gat':
+        embbeding_matrix = embbeding_matrix[0]
 
     target_encoding = preprocessing.LabelBinarizer()
     gt_labels = np.argmax(target_encoding.fit_transform(node_subjects), axis=1)
 
     tsne_plot_embedding(
-        X=embbeding_matrix[0],
+        X=embbeding_matrix,
         y=gt_labels,
         indices=node_subjects.index,
         model_name=model_name,

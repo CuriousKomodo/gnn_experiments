@@ -12,7 +12,8 @@ from stellar_graph_demo.gnn.train_gnn_functions import (
 
 if __name__ == "__main__":
     """Trains the GNN (GraphSAGE/GAT) model"""
-    _model_name = 'gat'
+    _model_name = 'graphsage'
+    _epochs = 100
 
     dataset = datasets.Cora()
     _graph, _node_subjects = dataset.load()
@@ -39,6 +40,7 @@ if __name__ == "__main__":
         model=_model,
         train_generator_flow=train_gen,
         val_generator_flow=val_gen,
+        epochs=_epochs,
     )
 
     # Get classification accuracy of pre-trained model on the test node features
